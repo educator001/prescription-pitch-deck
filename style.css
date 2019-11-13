@@ -1,0 +1,159 @@
+:root {
+  --animation-scale: 5;
+}
+
+html {
+  background-color: red;
+}
+
+body {
+  margin: 0;
+  background-color: blue;
+}
+
+main {
+  /* text-align: center; */
+  position: fixed;
+  width: 100%;
+  background-color: dimgray;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#pitch-deck {
+  height: 100%;
+  display: block;
+  position: relative;
+  top: 0;
+  margin: auto;
+}
+
+.test-button {
+  position: fixed;
+}
+
+.forward {
+  left: 88px;
+}
+
+#position-display {
+  top: 30px;
+  left: 44px;
+}
+
+.to-0 {
+  -webkit-animation: to0 5s forwards; /* Safari 4.0 - 8.0 */
+  animation: to0 5s forwards;
+}
+
+@keyframes to0 {
+  100% {
+    background-size: 100%;
+  }
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes to0 {
+  100% {
+    background-size: 100%;
+  }
+}
+
+.to-1 {
+  animation: to1 4s forwards;
+  -webkit-animation: to1 4s forwards;
+}
+
+@keyframes to1 {
+  100% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(0, 4%);
+    /* width: 8160px; */
+    /* height: 10560px; */
+  }
+}
+
+@-webkit-keyframes to1 {
+  100% {
+    -webkit-transform: scale(3.5, 3.5);
+  }
+}
+
+.to-2 {
+  animation: to2 4s forwards;
+  -webkit-animation: to2 4s forwards;
+}
+
+@keyframes to2 {
+  0% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(0, 4%);
+  }
+  100% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(-33.7%, 40%);
+  }
+}
+
+@webkit-keyframes to2 {
+  0% {
+    -webkit-transform: scale(3.5, 3.5);
+  }
+  100% {
+    -webkit-transform: scale(3.5, 3.5);
+    -webkit-transform: translate(-500px, 250px);
+  }
+}
+
+.to-3 {
+  animation: to3 4s forwards;
+  -webkit-animation: to3 4s forwards;
+}
+
+@keyframes to3 {
+  0% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(-33.7%, 40%);
+  }
+  100% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(-33.7%, 25%);
+  }
+}
+
+.to-4 {
+  animation: to4 4s forwards;
+  -webkit-animation: to4 4s forwards;
+}
+
+@keyframes to4 {
+  0% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(-33.7%, 25%);
+  }
+  100% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(33.7%, 40%);
+  }
+}
+
+.to-5 {
+  animation: to5 4s forwards;
+  -webkit-animation: to5 4s forwards;
+}
+
+@keyframes to5 {
+  0% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(33.7%, 40%);
+  }
+  100% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(33.7%, 4%);
+  }
+}
+
+.to-6 {
+  animation: to6 4s forwards;
+  -webkit-animation: to6 4s forwards;
+}
+
+@keyframes to6 {
+  0% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(33.7%, 4%);
+  }
+  100% {
+    transform: scale(var(--animation-scale), var(--animation-scale)) translate(15%, -7%);
+  }
+}

@@ -16,14 +16,14 @@ function goDirection(dir) {
         return;
       case "forward":
         pos++;
-        if (pos > 12) {
+        if (pos > 11) {
           pos = 0;
         }
         break;
       case "back":
         pos--;
         if (pos < 0) {
-          pos = 12;
+          pos = 11;
         }
     }
     updatePosition();

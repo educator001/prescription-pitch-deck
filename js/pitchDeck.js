@@ -4,11 +4,30 @@
  */
 
 $(function () { // wait for document ready
+
+  // make sure the entire viewport is covered
+  const imageRatio = 4000 / 3091;
+  var viewportRatio = $(window).width() / $(window).height();
+  if (viewportRatio >= imageRatio) {
+    document.getElementById("target").style.width = "100%";
+
+    var tween01 = TweenMax.to("#target", 2, {width: "4000px", x: "-2000px", y: "-1440px"});
+    var tween11 = TweenMax.to("#target", 2, {width: "100%", x: -$(window).width(), y: -$(window).width() * (3091/4000), xPercent: 50, yPercent: 50});
+  } else {
+    console.log("getting target...");
+    document.getElementById("target").style.width = "auto";
+    document.getElementById("target").style.height = "100%";
+
+    var tween01 = TweenMax.to("#target", 2, {height: "3091px", top: "50%", left: "50%", x: "-1333px", y: "-1000px"});
+    var tween11 = TweenMax.to("#target", 2, {height: "100%", xPercent: 50, yPercent: 50});
+  }
+
   // init controller
   var controller = new ScrollMagic.Controller();
 
   // build tweens
-  var tween01 = TweenMax.to("#target", 2, {width: "4000px", top: "50%", left: "50%", xPercent: -33, yPercent: -31});
+  // var tween01 = TweenMax.to("#target", 2, {width: "4000px", top: "50%", left: "50%", xPercent: -33, yPercent: -31});
+  // var tween01 = TweenMax.to("#target", 2, {width: "4000px", top: "50%", left: "50%", x: "-1333px", y: "-1000px"});
   var tween02 = TweenMax.to("#target", 2, {xPercent: -66, yPercent: 5});
   var tween03 = TweenMax.to("#target", 2, {yPercent: -10});
   var tween04 = TweenMax.to("#target", 2, {xPercent: 0, yPercent: 5});
@@ -18,7 +37,7 @@ $(function () { // wait for document ready
   var tween08 = TweenMax.to("#target", 2, {xPercent: -1, yPercent: -65});
   var tween09 = TweenMax.to("#target", 2, {xPercent: -28, yPercent: -10});
   var tween10 = TweenMax.to("#target", 2, {xPercent: -66, yPercent: -33});
-  var tween11 = TweenMax.to("#target", 2, {width: "100%", xPercent: 0, yPercent: 0});
+  // var tween11 = TweenMax.to("#target", 2, {width: "100%", xPercent: 0, yPercent: 0});
 
   // build scenes
   var scene01 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 19})
@@ -73,11 +92,6 @@ $(function () { // wait for document ready
 
   var scene11 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 5019})
     .setTween(tween11)
-    .addIndicators()
-    .addTo(controller);
-
-  var scene12 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 5519})
-    .setTween(tween12)
     .addIndicators()
     .addTo(controller);
 });

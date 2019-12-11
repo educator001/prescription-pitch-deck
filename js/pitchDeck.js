@@ -5,39 +5,80 @@
 
 $(function () { // wait for document ready
 
-  // make sure the entire viewport is covered
-  const imageRatio = 4000 / 3091;
-  var viewportRatio = $(window).width() / $(window).height();
-  if (viewportRatio >= imageRatio) {
+  // Please enter the image width and height, in pixels.
+  const width  = 4000;
+  const height = 3091;
+
+  // computed information about the image
+  const halfWidth  = width  / 2;
+  const halfHeight = height / 2;
+
+  const whRatio = width  / height;
+  const hwRatio = height /  width;
+
+  // information about the viewport
+  const vWidth  =  $(window).width();
+  const vHeight = $(window).height();
+
+  const halfVWidth  = vWidth  / 2;
+  const halfVHeight = vHeight / 2;
+
+  // Landscape display mode
+  if (vWidth / vHeight >= whRatio) {
+    // Make sure the image covers the entire viewport
     document.getElementById("target").style.width = "100%";
 
-    var tween01 = TweenMax.to("#target", 2, {width: "4000px", x: "-2000px", y: "-1440px"});
-    var tween11 = TweenMax.to("#target", 2, {width: "100%", x: -$(window).width(), y: -$(window).width() * (3091/4000), xPercent: 50, yPercent: 50});
+    // Build first tween
+    var tween01 = TweenMax.to(
+      "#target", 2, {width: width, x: -halfWidth, y: -halfHeight}
+    );
+
+    // Build last tween
+    var tween11 = TweenMax.to(
+      "#target", 2, {
+        width: "100%",
+        x: -vWidth,
+        y: -vWidth * hwRatio,
+        xPercent: 50,
+        yPercent: 50
+      }
+    );
+
+  // Portrait display mode
   } else {
-    console.log("getting target...");
-    document.getElementById("target").style.width = "auto";
+    // Make sure the image covers the entire viewport
     document.getElementById("target").style.height = "100%";
 
-    var tween01 = TweenMax.to("#target", 2, {height: "3091px", top: "50%", left: "50%", x: "-1333px", y: "-1000px"});
-    var tween11 = TweenMax.to("#target", 2, {height: "100%", xPercent: 50, yPercent: 50});
+    // Build first tween
+    var tween01 = TweenMax.to(
+      "#target", 2, {height: height, x: -halfWidth, y: -halfHeight}
+    );
+
+    // Build last tween
+    var tween11 = TweenMax.to(
+      "#target", 2, {
+        height: "100%",
+        x: -vHeight * whRatio,
+        y: -vHeight,
+        xPercent: 50,
+        yPercent: 50
+      }
+    );
   }
 
   // init controller
   var controller = new ScrollMagic.Controller();
 
-  // build tweens
-  // var tween01 = TweenMax.to("#target", 2, {width: "4000px", top: "50%", left: "50%", xPercent: -33, yPercent: -31});
-  // var tween01 = TweenMax.to("#target", 2, {width: "4000px", top: "50%", left: "50%", x: "-1333px", y: "-1000px"});
-  var tween02 = TweenMax.to("#target", 2, {xPercent: -66, yPercent: 5});
-  var tween03 = TweenMax.to("#target", 2, {yPercent: -10});
-  var tween04 = TweenMax.to("#target", 2, {xPercent: 0, yPercent: 5});
-  var tween05 = TweenMax.to("#target", 2, {yPercent: -35});
-  var tween06 = TweenMax.to("#target", 2, {xPercent: -66, yPercent: -50});
-  var tween07 = TweenMax.to("#target", 2, {yPercent: -74});
-  var tween08 = TweenMax.to("#target", 2, {xPercent: -1, yPercent: -65});
-  var tween09 = TweenMax.to("#target", 2, {xPercent: -28, yPercent: -10});
-  var tween10 = TweenMax.to("#target", 2, {xPercent: -66, yPercent: -33});
-  // var tween11 = TweenMax.to("#target", 2, {width: "100%", xPercent: 0, yPercent: 0});
+  // build rest of tweens
+  var tween02 = TweenMax.to("#target", 2, {x: halfVWidth - width, y: -halfVHeight});
+  var tween03 = TweenMax.to("#target", 2, {y: -halfVHeight - 500});
+  var tween04 = TweenMax.to("#target", 2, {x: -halfVWidth, y: -halfVHeight});
+  var tween05 = TweenMax.to("#target", 2, {y: -halfVHeight - 1100});
+  var tween06 = TweenMax.to("#target", 2, {x: halfVWidth - width, y: halfVHeight - height + 700});
+  var tween07 = TweenMax.to("#target", 2, {y: halfVHeight - height});
+  var tween08 = TweenMax.to("#target", 2, {x: -halfVWidth, y: halfVHeight - height + 200});
+  var tween09 = TweenMax.to("#target", 2, {x: 200 - halfWidth, y: 750 - halfHeight});
+  var tween10 = TweenMax.to("#target", 2, {x: halfVWidth - width, y: -halfHeight});
 
   // build scenes
   var scene01 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 19})

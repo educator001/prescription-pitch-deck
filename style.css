@@ -1,0 +1,25 @@
+html {
+  background-color: red;
+}
+
+body {
+  margin: 0;
+  height: calc(100vh + 5519px);
+  background-color: blue;
+}
+
+main {
+  position: fixed;
+  width: 100%;
+  background-color: dimgray;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#target {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}

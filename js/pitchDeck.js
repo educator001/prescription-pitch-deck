@@ -70,7 +70,7 @@ $(function () { // wait for document ready
   var controller = new ScrollMagic.Controller();
 
   // build rest of tweens
-  var tween02 = TweenMax.to("#target", 2, {x: halfVWidth - width, y: -halfVHeight});
+  var tween02 = TweenMax.to("#target", 2, {x: 80 + halfVWidth - width, y: -60 - halfVHeight});
   var tween03 = TweenMax.to("#target", 2, {y: -halfVHeight - 500});
   var tween04 = TweenMax.to("#target", 2, {x: -halfVWidth, y: -halfVHeight});
   var tween05 = TweenMax.to("#target", 2, {y: -halfVHeight - 1100});

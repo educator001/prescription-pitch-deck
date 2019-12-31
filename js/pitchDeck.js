@@ -74,7 +74,7 @@ $(function () { // wait for document ready
   var tween03 = TweenMax.to("#target", 2, {y: -halfVHeight - 500});
   var tween04 = TweenMax.to("#target", 2, {x: -halfVWidth, y: -halfVHeight});
   var tween05 = TweenMax.to("#target", 2, {y: -halfVHeight - 1100});
-  var tween06 = TweenMax.to("#target", 2, {x: halfVWidth - width, y: halfVHeight - height + 700});
+  var tween06 = TweenMax.to("#target", 2, {x: 100 + halfVWidth - width, y: halfVHeight - height + 700});
   var tween07 = TweenMax.to("#target", 2, {y: halfVHeight - height});
   var tween08 = TweenMax.to("#target", 2, {x: -halfVWidth, y: halfVHeight - height + 200});
   var tween09 = TweenMax.to("#target", 2, {x: 200 - halfWidth, y: 750 - halfHeight});

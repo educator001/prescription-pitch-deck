@@ -30,7 +30,7 @@ $(function () { // wait for document ready
 
     // Build first tween
     var tween01 = TweenMax.to(
-      "#target", 2, {width: width, x: -halfWidth, y: -halfHeight}
+      "#target", 2, {width: width, x: -halfWidth, y: 128 - halfHeight}
     );
 
     // Build last tween
@@ -51,7 +51,7 @@ $(function () { // wait for document ready
 
     // Build first tween
     var tween01 = TweenMax.to(
-      "#target", 2, {height: height, x: -halfWidth, y: -halfHeight}
+      "#target", 2, {height: height, x: -halfWidth, y: 128 - halfHeight}
     );
 
     // Build last tween

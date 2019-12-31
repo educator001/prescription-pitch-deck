@@ -72,7 +72,7 @@ $(function () { // wait for document ready
   // build rest of tweens
   var tween02 = TweenMax.to("#target", 2, {x: 80 + halfVWidth - width, y: -60 - halfVHeight});
   var tween03 = TweenMax.to("#target", 2, {y: -halfVHeight - 500});
-  var tween04 = TweenMax.to("#target", 2, {x: -halfVWidth, y: -halfVHeight});
+  var tween04 = TweenMax.to("#target", 2, {x: -halfVWidth, y: -80 - halfVHeight});
   var tween05 = TweenMax.to("#target", 2, {y: -halfVHeight - 1100});
   var tween06 = TweenMax.to("#target", 2, {x: 100 + halfVWidth - width, y: halfVHeight - height + 700});
   var tween07 = TweenMax.to("#target", 2, {y: 40 + halfVHeight - height});

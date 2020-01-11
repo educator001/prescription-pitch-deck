@@ -3,136 +3,202 @@
  * Create an entire slideshow out of a single large image.
  */
 
-$(function () { // wait for document ready
+const width  = 4000; // image width
+const height = 3091; // image height
 
-  // Please enter the image width and height, in pixels.
-  const width  = 4000;
-  const height = 3091;
+var vWidth;          // viewport width
+var vHeight;         // viewport height
 
-  // computed information about the image
-  const halfWidth  = width  / 2;
-  const halfHeight = height / 2;
+// tweens
+var tween01, tween02, tween03, tween04, tween05,
+	tween06, tween07, tween08, tween09, tween10, tween11;
 
-  const whRatio = width  / height;
-  const hwRatio = height /  width;
+// scenes
+var scene01, scene02, scene03, scene04, scene05,
+	scene06, scene07, scene08, scene09, scene10, scene11;
 
-  // information about the viewport
-  const vWidth  =  $(window).width();
-  const vHeight = $(window).height();
+var controller; // ScrollMagic controller
 
-  const halfVWidth  = vWidth  / 2;
-  const halfVHeight = vHeight / 2;
+function drawTrack() {
+
+  // refresh viewport info
+  vWidth  =  $(window).width();
+  vHeight = $(window).height();
 
   // Landscape display mode
-  if (vWidth / vHeight >= whRatio) {
-    // Make sure the image covers the entire viewport
-    document.getElementById("target").style.width = "100%";
+  if (vWidth / vHeight >= width / height) {
 
-    // Build first tween
-    var tween01 = TweenMax.to(
-      "#target", 2, {width: width, x: -halfWidth, y: 128 - halfHeight}
-    );
+    // Build first
+    tween01 = TweenMax.fromTo("#target", 2, {
+      width: "100%",
+			height: "auto",
+			x: 0.5 * vWidth,
+      y: 0.5 * vHeight,
+      xPercent: -50,
+      yPercent: -50
+    }, {
+      width: 3.7 * vWidth,
+			yPercent: -46.5
+    });
 
-    // Build last tween
-    var tween11 = TweenMax.to(
-      "#target", 2, {
-        width: "100%",
-        x: -vWidth,
-        y: -vWidth * hwRatio,
-        xPercent: 50,
-        yPercent: 50
-      }
-    );
+    // Build last
+    tween11 = TweenMax.to("#target", 2, {
+      width: "100%",
+      xPercent: -50,
+			yPercent: -50
+		});
 
   // Portrait display mode
   } else {
-    // Make sure the image covers the entire viewport
-    document.getElementById("target").style.height = "100%";
 
-    // Build first tween
-    var tween01 = TweenMax.to(
-      "#target", 2, {height: height, x: -halfWidth, y: 128 - halfHeight}
-    );
+    // Build first
+    tween01 = TweenMax.fromTo("#target", 2, {
+			height: "100%",
+			width: "auto",
+			x: 0.5 * vWidth,
+			y: 0.5 * vHeight,
+			xPercent: -50,
+			yPercent: -50
+		}, {
+			height: 4 * vHeight,
+			yPercent: -46.5
+		});
 
-    // Build last tween
-    var tween11 = TweenMax.to(
-      "#target", 2, {
-        height: "100%",
-        x: -vHeight * whRatio,
-        y: -vHeight,
-        xPercent: 50,
-        yPercent: 50
-      }
-    );
+    // Build last
+    tween11 = TweenMax.to("#target", 2, {
+      height: "100%",
+      xPercent: -50,
+      yPercent: -50
+    });
   }
 
-  // init controller
-  var controller = new ScrollMagic.Controller();
+  // build rest
+	tween02 = TweenMax.to("#target", 2, {xPercent: -85,   yPercent: -9   });
+  tween03 = TweenMax.to("#target", 2, {                 yPercent: -30  });
+  tween04 = TweenMax.to("#target", 2, {xPercent: -13.6, yPercent: -9   });
+  tween05 = TweenMax.to("#target", 2, {                 yPercent: -50  });
+  tween06 = TweenMax.to("#target", 2, {xPercent: -82.5, yPercent: -63  });
+  tween07 = TweenMax.to("#target", 2, {                 yPercent: -91  });
+  tween08 = TweenMax.to("#target", 2, {xPercent: -19,   yPercent: -80.5});
+  tween09 = TweenMax.to("#target", 2, {xPercent: -45,   yPercent: -25  });
+  tween10 = TweenMax.to("#target", 2, {xPercent: -86.4, yPercent: -50  });
 
-  // build rest of tweens
-  var tween02 = TweenMax.to("#target", 2, {x: 80 + halfVWidth - width, y: -60 - halfVHeight});
-  var tween03 = TweenMax.to("#target", 2, {y: -halfVHeight - 500});
-  var tween04 = TweenMax.to("#target", 2, {x: -halfVWidth, y: -80 - halfVHeight});
-  var tween05 = TweenMax.to("#target", 2, {y: -halfVHeight - 1100});
-  var tween06 = TweenMax.to("#target", 2, {x: 100 + halfVWidth - width, y: halfVHeight - height + 700});
-  var tween07 = TweenMax.to("#target", 2, {y: 40 + halfVHeight - height});
-  var tween08 = TweenMax.to("#target", 2, {x: -130 - halfVWidth, y: halfVHeight - height + 275});
-  var tween09 = TweenMax.to("#target", 2, {x: 200 - halfWidth, y: 750 - halfHeight});
-  var tween10 = TweenMax.to("#target", 2, {x: halfVWidth - width, y: -halfHeight});
+	controller.removeScene([
+		scene01,
+		scene02,
+		scene03,
+		scene04,
+		scene05,
+		scene06,
+		scene07,
+		scene08,
+		scene09,
+		scene10,
+		scene11
+	]);
 
-  // build scenes
-  var scene01 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 19})
-    .setTween(tween01)
-    .addIndicators() // add indicators (requires plugin)
-    .addTo(controller);
+  // build
+	scene01.setTween(tween01).addIndicators().addTo(controller);
+	scene02.setTween(tween02).addIndicators().addTo(controller);
+	scene03.setTween(tween03).addIndicators().addTo(controller);
+	scene04.setTween(tween04).addIndicators().addTo(controller);
+	scene05.setTween(tween05).addIndicators().addTo(controller);
+	scene06.setTween(tween06).addIndicators().addTo(controller);
+	scene07.setTween(tween07).addIndicators().addTo(controller);
+	scene08.setTween(tween08).addIndicators().addTo(controller);
+	scene09.setTween(tween09).addIndicators().addTo(controller);
+	scene10.setTween(tween10).addIndicators().addTo(controller);
+	scene11.setTween(tween11).addIndicators().addTo(controller);
+}
 
-  var scene02 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 519})
-    .setTween(tween02)
-    .addIndicators()
-    .addTo(controller);
+// Define the debounced function
+var debouncedDrawTrack = debounce(drawTrack, 500);
 
-  var scene03 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 1019})
-    .setTween(tween03)
-    .addIndicators()
-    .addTo(controller);
+// Call the debounced function on every resize
+window.onresize = debouncedDrawTrack;
 
-  var scene04 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 1519})
-    .setTween(tween04)
-    .addIndicators()
-    .addTo(controller);
+// wait for document ready
+$(function () {
 
-  var scene05 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 2019})
-    .setTween(tween05)
-    .addIndicators()
-    .addTo(controller);
+	controller = new ScrollMagic.Controller();
 
-  var scene06 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 2519})
-    .setTween(tween06)
-    .addIndicators()
-    .addTo(controller);
+	scene01 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 19
+	});
 
-  var scene07 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 3019})
-    .setTween(tween07)
-    .addIndicators()
-    .addTo(controller);
+	scene02 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 1019
+	});
 
-  var scene08 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 3519})
-    .setTween(tween08)
-    .addIndicators()
-    .addTo(controller);
+	scene03 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 2019
+	});
 
-  var scene09 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 4019})
-    .setTween(tween09)
-    .addIndicators()
-    .addTo(controller);
+	scene04 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 3019
+	});
 
-  var scene10 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 4519})
-    .setTween(tween10)
-    .addIndicators()
-    .addTo(controller);
+	scene05 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 4019
+	});
 
-  var scene11 = new ScrollMagic.Scene({triggerElement: "#trigger", triggerHook: "onLeave", duration: 500, offset: 5019})
-    .setTween(tween11)
-    .addIndicators()
-    .addTo(controller);
+	scene06 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 5019
+	});
+
+	scene07 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 6019
+	});
+
+	scene08 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 7019
+	});
+
+	scene09 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 8019
+	});
+
+	scene10 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 9019
+	});
+
+	scene11 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 10019
+	});
+
+	drawTrack();
+
 });

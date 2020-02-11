@@ -9,6 +9,9 @@ const height = 3091; // image height
 var vWidth;          // viewport width
 var vHeight;         // viewport height
 
+var zWidth;          // zoom width
+var zHeight;         // zoom height
+
 // tweens
 var tween01, tween02, tween03, tween04, tween05,
 	tween06, tween07, tween08, tween09, tween10, tween11;
@@ -28,6 +31,10 @@ function drawTrack() {
   // Landscape display mode
   if (vWidth / vHeight >= width / height) {
 
+		// Set zoom
+		zWidth  = 3.5 * vWidth;
+		zHeight = zWidth * (height / width);
+
     // Build first
     tween01 = TweenMax.fromTo("#target", 2, {
       width: "100%",
@@ -37,15 +44,18 @@ function drawTrack() {
       xPercent: -50,
       yPercent: -50
     }, {
-      width: 3.7 * vWidth,
-			yPercent: -46.5
+      width: zWidth,
+			// yPercent: -46.5
+			y: zHeight / 8.14
     });
 
     // Build last
     tween11 = TweenMax.to("#target", 2, {
       width: "100%",
-      xPercent: -50,
-			yPercent: -50
+      // xPercent: -50,
+			// yPercent: -50
+			x: 0.5 * vWidth,
+			y: 0.5 * vHeight
 		});
 
   // Portrait display mode
@@ -73,15 +83,27 @@ function drawTrack() {
   }
 
   // build rest
-	tween02 = TweenMax.to("#target", 2, {xPercent: -85,   yPercent: -12   });
-  tween03 = TweenMax.to("#target", 2, {                 yPercent: -30  });
-  tween04 = TweenMax.to("#target", 2, {xPercent: -13.6, yPercent: -12   });
-  tween05 = TweenMax.to("#target", 2, {                 yPercent: -50  });
-  tween06 = TweenMax.to("#target", 2, {xPercent: -82.5, yPercent: -63  });
-  tween07 = TweenMax.to("#target", 2, {                 yPercent: -88  });
-  tween08 = TweenMax.to("#target", 2, {xPercent: -19,   yPercent: -80.5});
-  tween09 = TweenMax.to("#target", 2, {xPercent: -45,   yPercent: -25  });
-  tween10 = TweenMax.to("#target", 2, {xPercent: -86.4, yPercent: -50  });
+	// console.log("zheight = " + zHeight);
+	// console.log("zwidth = " + zWidth);
+	tween02 = TweenMax.to("#target", 2, {x: zWidth * -(3/14), y: zHeight * (1/2)});
+	tween03 = TweenMax.to("#target", 2, {                     y: zHeight * 0.25 + vHeight * (1/2)});
+	tween04 = TweenMax.to("#target", 2, {x: zWidth *  (1/2), y: zHeight * (7/14)});
+	tween05 = TweenMax.to("#target", 2, {                     y: vHeight * (1/2)});
+	tween06 = TweenMax.to("#target", 2, {x: zWidth * -(3/14), y: vHeight * -(1/2)});
+	tween07 = TweenMax.to("#target", 2, {                     y: zHeight * -(7/14) + vHeight});
+	tween08 = TweenMax.to("#target", 2, {x: zWidth *  0.45, y: zHeight * -0.305 + vHeight * (1/2)});
+	tween09 = TweenMax.to("#target", 2, {x: zWidth * 0.19, y: zHeight * 0.25 + vHeight * (1/2)});
+	tween10 = TweenMax.to("#target", 2, {x: zWidth * -(3/14), y: vHeight * (1/2)});
+
+	// tween02 = TweenMax.to("#target", 2, {xPercent: -85,   yPercent: -12   });
+  // tween03 = TweenMax.to("#target", 2, {                 yPercent: -30  });
+  // tween04 = TweenMax.to("#target", 2, {xPercent: -13.6, yPercent: -12   });
+  // tween05 = TweenMax.to("#target", 2, {                 yPercent: -50  });
+  // tween06 = TweenMax.to("#target", 2, {xPercent: -82.5, yPercent: -63  });
+  // tween07 = TweenMax.to("#target", 2, {                 yPercent: -88  });
+  // tween08 = TweenMax.to("#target", 2, {xPercent: -19,   yPercent: -80.5});
+  // tween09 = TweenMax.to("#target", 2, {xPercent: -45,   yPercent: -25  });
+  // tween10 = TweenMax.to("#target", 2, {xPercent: -86.4, yPercent: -50  });
 
 	controller.removeScene([
 		scene01,

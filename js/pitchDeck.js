@@ -73,12 +73,12 @@ function drawTrack() {
   }
 
   // build rest
-	tween02 = TweenMax.to("#target", 2, {xPercent: -85,   yPercent: -9   });
+	tween02 = TweenMax.to("#target", 2, {xPercent: -85,   yPercent: -12   });
   tween03 = TweenMax.to("#target", 2, {                 yPercent: -30  });
-  tween04 = TweenMax.to("#target", 2, {xPercent: -13.6, yPercent: -9   });
+  tween04 = TweenMax.to("#target", 2, {xPercent: -13.6, yPercent: -12   });
   tween05 = TweenMax.to("#target", 2, {                 yPercent: -50  });
   tween06 = TweenMax.to("#target", 2, {xPercent: -82.5, yPercent: -63  });
-  tween07 = TweenMax.to("#target", 2, {                 yPercent: -91  });
+  tween07 = TweenMax.to("#target", 2, {                 yPercent: -88  });
   tween08 = TweenMax.to("#target", 2, {xPercent: -19,   yPercent: -80.5});
   tween09 = TweenMax.to("#target", 2, {xPercent: -45,   yPercent: -25  });
   tween10 = TweenMax.to("#target", 2, {xPercent: -86.4, yPercent: -50  });

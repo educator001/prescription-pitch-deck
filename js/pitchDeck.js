@@ -3,107 +3,86 @@
  * Create an entire slideshow out of a single large image.
  */
 
-const width  = 4000; // image width
-const height = 3091; // image height
+const iw = 4000, ih = 3091; // image width and height
 
-var vWidth;          // viewport width
-var vHeight;         // viewport height
+var vw, vh, zw, zh; // viewport and zoom width and height
 
-var zWidth;          // zoom width
-var zHeight;         // zoom height
+var t01, t02, t03, t04, t05, t06, t07, t08, t09, t10, t11,
+	t12, t13, t14, t15, t16, t17, t18, t19, t20, t21; // tweens
 
-// tweens
-var tween01, tween02, tween03, tween04, tween05,
-	tween06, tween07, tween08, tween09, tween10, tween11;
-
-// scenes
-var scene01, scene02, scene03, scene04, scene05,
+var scene01, scene02, scene03, scene04, scene05, // scenes
 	scene06, scene07, scene08, scene09, scene10, scene11;
 
 var controller; // ScrollMagic controller
 
+// Called when the page first loads and whenever the window is resized
 function drawTrack() {
 
   // refresh viewport info
-  vWidth  =  $(window).width();
-  vHeight = $(window).height();
+  vw = $(window).width();
+  vh = $(window).height();
 
-  // Landscape display mode
-  if (vWidth / vHeight >= width / height) {
+	// Set zoom
+	zw = 3.5 * vw;
+	zh = zw * (ih / iw);
 
-		// Set zoom
-		zWidth  = 3.5 * vWidth;
-		zHeight = zWidth * (height / width);
+	// Set property values for all tweens
+	tween20Vars = {y: vh/2};
+	tween21Vars = {...tween20Vars, x: vw/2};
+	tween01From = {...tween21Vars, xPercent: -50, yPercent: -50};
+	tween01To   = {width: zw,      y:  0.035 * zh + vh/2};
+	tween02Vars = {x: -0.100 * zw, y:  0.500 * zh            };
+	tween03Vars = {x: -(3/14)* zw                                 };
+	tween04Vars = {                    y:  0.220 * zh + vh/2};
+	tween05Vars = {x: -0.150 * zw                                 };
+	tween06Vars = {x:  0.400 * zw, y:  0.500 * zh            };
+	tween07Vars = {x:  0.500 * zw                                 };
+	tween08Vars = {                    y: -0.030 * zh + vh/2};
+	tween09Vars = {x:  0.450 * zw                                 };
+	tween10Vars = {x: -0.080 * zw, y: -0.140 * zh + vh/2};
+	tween11Vars = {x: -0.185 * zw                                 };
+	tween12Vars = {                    y: -0.500 * zh + vh  };
+	tween13Vars = {x: -0.100 * zw                                 };
+	tween14Vars = {x:  0.450 * zw, y: -0.460 * zh + vh  };
+	tween15Vars = {                    y: -0.305 * zh + vh/2};
+	tween16Vars = {x:  0.370 * zw                                 };
+	tween17Vars = {x:  0.280 * zw, y:  0.250 * zh + vh/2};
+	tween18Vars = {x:  0.140 * zw                                 };
+	tween19Vars = {x: -(3/14)* zw, y:  0.080 * zh + vh/2};
 
-    // Build first
-    tween01 = TweenMax.fromTo("#target", 2, {
-      width: "100%",
-			height: "auto",
-			x: 0.5 * vWidth,
-      y: 0.5 * vHeight,
-      xPercent: -50,
-      yPercent: -50
-    }, {
-      width: zWidth,
-			// yPercent: -46.5
-			y: zHeight / 8.14
-    });
-
-    // Build last
-    tween11 = TweenMax.to("#target", 2, {
-      width: "100%",
-      // xPercent: -50,
-			// yPercent: -50
-			x: 0.5 * vWidth,
-			y: 0.5 * vHeight
-		});
-
-  // Portrait display mode
-  } else {
-
-    // Build first
-    tween01 = TweenMax.fromTo("#target", 2, {
-			height: "100%",
-			width: "auto",
-			x: 0.5 * vWidth,
-			y: 0.5 * vHeight,
-			xPercent: -50,
-			yPercent: -50
-		}, {
-			height: 4 * vHeight,
-			yPercent: -46.5
-		});
-
-    // Build last
-    tween11 = TweenMax.to("#target", 2, {
-      height: "100%",
-      xPercent: -50,
-      yPercent: -50
-    });
+  // Ensure the image fills the whole window at the beginning and end
+  if (vw / vh >= iw / ih) { // Landscape display mode
+		tween01From = {...tween01From, width: "100%", height: "auto"};
+		tween21Vars = {...tween21Vars, width: "100%"};
+  } else { // Portrait display mode
+		tween01From = {...tween01From, height: "100%", width: "auto"};
+		tween01To = {...tween01To, height: "auto"};
+		tween21Vars = {...tween21Vars, height: "100%", width: "auto"};
   }
 
-  // build rest
-	// console.log("zheight = " + zHeight);
-	// console.log("zwidth = " + zWidth);
-	tween02 = TweenMax.to("#target", 2, {x: zWidth * -(3/14), y: zHeight * (1/2)});
-	tween03 = TweenMax.to("#target", 2, {                     y: zHeight * 0.25 + vHeight * (1/2)});
-	tween04 = TweenMax.to("#target", 2, {x: zWidth *  (1/2), y: zHeight * (7/14)});
-	tween05 = TweenMax.to("#target", 2, {                     y: vHeight * (1/2)});
-	tween06 = TweenMax.to("#target", 2, {x: zWidth * -(3/14), y: vHeight * -(1/2)});
-	tween07 = TweenMax.to("#target", 2, {                     y: zHeight * -(7/14) + vHeight});
-	tween08 = TweenMax.to("#target", 2, {x: zWidth *  0.45, y: zHeight * -0.305 + vHeight * (1/2)});
-	tween09 = TweenMax.to("#target", 2, {x: zWidth * 0.19, y: zHeight * 0.25 + vHeight * (1/2)});
-	tween10 = TweenMax.to("#target", 2, {x: zWidth * -(3/14), y: vHeight * (1/2)});
+	// Build tweens
+	t01 = TweenMax.fromTo("#target", 2, tween01From, tween01To);
 
-	// tween02 = TweenMax.to("#target", 2, {xPercent: -85,   yPercent: -12   });
-  // tween03 = TweenMax.to("#target", 2, {                 yPercent: -30  });
-  // tween04 = TweenMax.to("#target", 2, {xPercent: -13.6, yPercent: -12   });
-  // tween05 = TweenMax.to("#target", 2, {                 yPercent: -50  });
-  // tween06 = TweenMax.to("#target", 2, {xPercent: -82.5, yPercent: -63  });
-  // tween07 = TweenMax.to("#target", 2, {                 yPercent: -88  });
-  // tween08 = TweenMax.to("#target", 2, {xPercent: -19,   yPercent: -80.5});
-  // tween09 = TweenMax.to("#target", 2, {xPercent: -45,   yPercent: -25  });
-  // tween10 = TweenMax.to("#target", 2, {xPercent: -86.4, yPercent: -50  });
+	t02 = TweenMax.to("#target", 1, tween02Vars);
+	t03 = TweenMax.to("#target", 1, tween03Vars); // A BROKEN SEARCH
+	t04 = TweenMax.to("#target", 1, tween04Vars);
+	t05 = TweenMax.to("#target", 1, tween05Vars);
+	t06 = TweenMax.to("#target", 1, tween06Vars);
+	t07 = TweenMax.to("#target", 1, tween07Vars); // OUR APPROACH
+	t08 = TweenMax.to("#target", 1, tween08Vars);
+	t09 = TweenMax.to("#target", 1, tween09Vars);
+	t10 = TweenMax.to("#target", 1, tween10Vars);
+	t11 = TweenMax.to("#target", 1, tween11Vars); // JAKE
+	t12 = TweenMax.to("#target", 1, tween12Vars);
+	t13 = TweenMax.to("#target", 1, tween13Vars);
+	t14 = TweenMax.to("#target", 1, tween14Vars);
+	t15 = TweenMax.to("#target", 1, tween15Vars); // REFERENCE FILMS
+	t16 = TweenMax.to("#target", 1, tween16Vars);
+	t17 = TweenMax.to("#target", 1, tween17Vars);
+	t18 = TweenMax.to("#target", 1, tween18Vars); // PROJECT TIMELINE
+	t19 = TweenMax.to("#target", 1, tween19Vars);
+	t20 = TweenMax.to("#target", 1, tween20Vars); // CONTACT
+	t21 = TweenMax.to("#target", 1, tween21Vars);
 
 	controller.removeScene([
 		scene01,
@@ -116,24 +95,44 @@ function drawTrack() {
 		scene08,
 		scene09,
 		scene10,
-		scene11
+		scene11,
+		scene12,
+		scene13,
+		scene14,
+		scene15,
+		scene16,
+		scene17,
+		scene18,
+		scene19,
+		scene20,
+		scene21
 	]);
 
   // build
-	scene01.setTween(tween01).addIndicators().addTo(controller);
-	scene02.setTween(tween02).addIndicators().addTo(controller);
-	scene03.setTween(tween03).addIndicators().addTo(controller);
-	scene04.setTween(tween04).addIndicators().addTo(controller);
-	scene05.setTween(tween05).addIndicators().addTo(controller);
-	scene06.setTween(tween06).addIndicators().addTo(controller);
-	scene07.setTween(tween07).addIndicators().addTo(controller);
-	scene08.setTween(tween08).addIndicators().addTo(controller);
-	scene09.setTween(tween09).addIndicators().addTo(controller);
-	scene10.setTween(tween10).addIndicators().addTo(controller);
-	scene11.setTween(tween11).addIndicators().addTo(controller);
+	scene01.setTween(t01).addIndicators().addTo(controller);
+	scene02.setTween(t02).addIndicators().addTo(controller);
+	scene03.setTween(t03).addIndicators().addTo(controller);
+	scene04.setTween(t04).addIndicators().addTo(controller);
+	scene05.setTween(t05).addIndicators().addTo(controller);
+	scene06.setTween(t06).addIndicators().addTo(controller);
+	scene07.setTween(t07).addIndicators().addTo(controller);
+	scene08.setTween(t08).addIndicators().addTo(controller);
+	scene09.setTween(t09).addIndicators().addTo(controller);
+	scene10.setTween(t10).addIndicators().addTo(controller);
+	scene11.setTween(t11).addIndicators().addTo(controller);
+	scene12.setTween(t12).addIndicators().addTo(controller);
+	scene13.setTween(t13).addIndicators().addTo(controller);
+	scene14.setTween(t14).addIndicators().addTo(controller);
+	scene15.setTween(t15).addIndicators().addTo(controller);
+	scene16.setTween(t16).addIndicators().addTo(controller);
+	scene17.setTween(t17).addIndicators().addTo(controller);
+	scene18.setTween(t18).addIndicators().addTo(controller);
+	scene19.setTween(t19).addIndicators().addTo(controller);
+	scene20.setTween(t20).addIndicators().addTo(controller);
+	scene21.setTween(t21).addIndicators().addTo(controller);
 }
 
-// Define the debounced function
+// Define a debounced version of our function
 var debouncedDrawTrack = debounce(drawTrack, 500);
 
 // Call the debounced function on every resize
@@ -219,6 +218,76 @@ $(function () {
 		triggerHook: "onLeave",
 		duration: 1000,
 		offset: 10019
+	});
+
+	scene12 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 11019
+	});
+
+	scene13 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 12019
+	});
+
+	scene14 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 13019
+	});
+
+	scene15 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 14019
+	});
+
+	scene16 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 15019
+	});
+
+	scene17 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 16019
+	});
+
+	scene18 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 17019
+	});
+
+	scene19 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 18019
+	});
+
+	scene20 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 19019
+	});
+
+	scene21 = new ScrollMagic.Scene({
+		triggerElement: "#trigger",
+		triggerHook: "onLeave",
+		duration: 1000,
+		offset: 20019
 	});
 
 	drawTrack();

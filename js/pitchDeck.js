@@ -291,5 +291,7 @@ $(function () {
 	});
 
 	drawTrack();
+	document.getElementById("loader").style.display = "none";
+	document.getElementById("target").style.display = "block";
 
 });

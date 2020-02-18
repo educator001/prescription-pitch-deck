@@ -3,7 +3,7 @@
  * Create an entire slideshow out of a single large image.
  */
 
-const iw = 4000, ih = 3091; // image width and height
+const iw = 5280, ih = 4080; // image width and height
 
 var vw, vh, zw, zh; // viewport and zoom width and height
 

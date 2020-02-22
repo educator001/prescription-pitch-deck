@@ -7,13 +7,13 @@ const iw = 5280, ih = 4080; // image width and height
 
 var vw, vh, zw, zh; // viewport and zoom width and height
 
-var t01, t02, t03, t04, t05, t06, t07, t08, t09, t10, t11,
-	t12, t13, t14, t15, t16, t17, t18, t19, t20, t21; // tweens
+var controller; // ScrollMagic controller
 
 var scene01, scene02, scene03, scene04, scene05, // scenes
 	scene06, scene07, scene08, scene09, scene10, scene11;
 
-var controller; // ScrollMagic controller
+var t01, t02, t03, t04, t05, t06, t07, t08, t09, t10, t11,
+	t12, t13, t14, t15, t16, t17, t18, t19, t20, t21; // tweens
 
 // Called when the page first loads and whenever the window is resized
 function drawTrack() {
@@ -27,28 +27,28 @@ function drawTrack() {
 	zh = zw * (ih / iw);
 
 	// Set property values for all tweens
-	tween20Vars = {y: vh/2};
+	tween20Vars = {y: vh/2, ease: Linear.easeInOut};
 	tween21Vars = {...tween20Vars, x: vw/2};
 	tween01From = {...tween21Vars, xPercent: -50, yPercent: -50};
-	tween01To   = {width: zw,      y:  0.035 * zh + vh/2};
-	tween02Vars = {x: -0.100 * zw, y:  0.500 * zh            };
-	tween03Vars = {x: -(3/14)* zw                                 };
-	tween04Vars = {                    y:  0.220 * zh + vh/2};
-	tween05Vars = {x: -0.150 * zw                                 };
-	tween06Vars = {x:  0.400 * zw, y:  0.500 * zh            };
-	tween07Vars = {x:  0.500 * zw                                 };
-	tween08Vars = {                    y: -0.030 * zh + vh/2};
-	tween09Vars = {x:  0.450 * zw                                 };
-	tween10Vars = {x: -0.080 * zw, y: -0.140 * zh + vh/2};
-	tween11Vars = {x: -0.185 * zw                                 };
-	tween12Vars = {                    y: -0.500 * zh + vh  };
-	tween13Vars = {x: -0.100 * zw                                 };
-	tween14Vars = {x:  0.450 * zw, y: -0.460 * zh + vh  };
-	tween15Vars = {                    y: -0.305 * zh + vh/2};
-	tween16Vars = {x:  0.370 * zw                                 };
-	tween17Vars = {x:  0.280 * zw, y:  0.250 * zh + vh/2};
-	tween18Vars = {x:  0.140 * zw                                 };
-	tween19Vars = {x: -(3/14)* zw, y:  0.080 * zh + vh/2};
+	tween01To   = {width: zw,      y:  0.035 * zh + vh/2, ease: Linear.easeInOut};
+	tween02Vars = {x: -0.100 * zw, y:  0.500 * zh, ease: Linear.easeIn        };
+	tween03Vars = {x: -(3/14)* zw,                 ease: Linear.easeOut};
+	tween04Vars = {                y:  0.220 * zh + vh/2, ease: Linear.easeInOut};
+	tween05Vars = {x: -0.150 * zw, ease: Linear.easeIn                       };
+	tween06Vars = {x:  0.400 * zw, y:  0.500 * zh, ease: Linear.easeNone   };
+	tween07Vars = {x:  0.500 * zw,    ease: Linear.easeOut                 };
+	tween08Vars = {                    y: -0.030 * zh + vh/2, ease: Linear.easeInOut};
+	tween09Vars = {x:  0.450 * zw, ease: Linear.easeIn                        };
+	tween10Vars = {x: -0.080 * zw, y: -0.140 * zh + vh/2, ease: Linear.easeNone};
+	tween11Vars = {x: -0.185 * zw, ease: Linear.easeOut                      };
+	tween12Vars = {                    y: -0.500 * zh + vh, ease: Linear.easeInOut};
+	tween13Vars = {x: -0.100 * zw, ease: Linear.easeIn                      };
+	tween14Vars = {x:  0.450 * zw, y: -0.460 * zh + vh, ease: Linear.easeOut};
+	tween15Vars = {                    y: -0.305 * zh + vh/2, ease: Linear.easeInOut};
+	tween16Vars = {x:  0.370 * zw, ease: Linear.easeIn            };
+	tween17Vars = {x:  0.280 * zw, y:  0.250 * zh + vh/2, ease: Linear.easeOut};
+	tween18Vars = {x:  0.140 * zw, ease: Linear.easeInOut            };
+	tween19Vars = {x: -(3/14)* zw, y:  0.080 * zh + vh/2, ease: Linear.easeIn};
 
   // Ensure the image fills the whole window at the beginning and end
   if (vw / vh >= iw / ih) { // Landscape display mode
@@ -153,141 +153,141 @@ $(function () {
 	scene02 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
+		duration: 2000,
 		offset: 1019
 	});
 
 	scene03 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 2019
+		duration: 500,
+		offset: 3019
 	});
 
 	scene04 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
 		duration: 1000,
-		offset: 3019
+		offset: 3519
 	});
 
 	scene05 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 4019
+		duration: 500,
+		offset: 4519
 	});
 
 	scene06 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
+		duration: 2000,
 		offset: 5019
 	});
 
 	scene07 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 6019
+		duration: 500,
+		offset: 7019
 	});
 
 	scene08 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 7019
+		duration: 2000,
+		offset: 7519
 	});
 
 	scene09 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 8019
+		duration: 500,
+		offset: 9519
 	});
 
 	scene10 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 9019
+		duration: 2000,
+		offset: 10019
 	});
 
 	scene11 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 10019
+		duration: 500,
+		offset: 12019
 	});
 
 	scene12 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
 		duration: 1000,
-		offset: 11019
+		offset: 12519
 	});
 
 	scene13 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 12019
+		duration: 500,
+		offset: 13519
 	});
 
 	scene14 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 13019
+		duration: 2000,
+		offset: 14019
 	});
 
 	scene15 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
 		duration: 1000,
-		offset: 14019
+		offset: 16019
 	});
 
 	scene16 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 15019
+		duration: 500,
+		offset: 17019
 	});
 
 	scene17 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 16019
+		duration: 2000,
+		offset: 17519
 	});
 
 	scene18 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
 		duration: 1000,
-		offset: 17019
+		offset: 19519
 	});
 
 	scene19 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
-		duration: 1000,
-		offset: 18019
+		duration: 2000,
+		offset: 20519
 	});
 
 	scene20 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
 		duration: 1000,
-		offset: 19019
+		offset: 22519
 	});
 
 	scene21 = new ScrollMagic.Scene({
 		triggerElement: "#trigger",
 		triggerHook: "onLeave",
 		duration: 1000,
-		offset: 20019
+		offset: 23519
 	});
 
 	drawTrack();

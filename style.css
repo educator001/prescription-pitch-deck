@@ -1,11 +1,9 @@
 html {
-  background-color: red;
+  /* background-color: #000000; */
 }
 
 body {
   margin: 0;
-  /* height: calc(100vh + 24519px); */
-  background-color: blue;
 }
 
 /* Center the loader */
@@ -39,14 +37,18 @@ body {
 main {
   position: fixed;
   width: 100%;
-  background-color: dimgray;
   height: 100vh;
   overflow: hidden;
 }
 
 #target {
-  display: none;
   position: absolute;
+  opacity: 0;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* margin-right: -50%; */
 }
 
 .overlay {
@@ -58,19 +60,18 @@ main {
   left: 0;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,1);
-  /* background-color: rgba(0,0,0, 0); */
   overflow-x: hidden;
-  /* transition: 0.5s; */
 }
 
 #splash {
   opacity: 0;
+  visibility: hidden;
 
-  -webkit-transition: opacity 1s ease-in;
-     -moz-transition: opacity 1s ease-in;
-      -ms-transition: opacity 1s ease-in;
-       -o-transition: opacity 1s ease-in;
-          transition: opacity 1s ease-in;
+  -webkit-transition: 1.5s;
+     -moz-transition: 1.5s;
+      -ms-transition: 1.5s;
+       -o-transition: 1.5s;
+          transition: 1.5s;
 }
 
 .overlay-content {

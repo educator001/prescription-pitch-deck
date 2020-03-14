@@ -316,6 +316,7 @@ function updateDisplay() {
 	zw = z * vw;
 	zh = zw * (ih / iw);
 
+	// t.width = "100%";
 	t.top = 0.035 * zh + vh/2 + "px";
 	t.left = vw/2 + "px";
 	t.transform = "translate(-50%, -50%)";

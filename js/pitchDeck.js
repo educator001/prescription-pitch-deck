@@ -134,6 +134,7 @@ function drawTrack() {
 }
 
 function chooseDesktop() {
+	enterSite();
 
 	// Replace default (mobile) styling with desktop styling
 	document.body.style.height = "calc(100vh + 24519px)";
@@ -295,6 +296,29 @@ function chooseDesktop() {
 
 	// Call a debounced version of our function on window resize
 	window.onresize = debounce(drawTrack, 500);
+}
+
+function chooseMobile() {
+	enterSite();
+
+	updateDisplay();
+
+	window.onresize = debounce(updateDisplay, 500);
+}
+
+function updateDisplay() {
+
+	// refresh viewport info
+	vw = $(window).width();
+	vh = $(window).height();
+
+	// Set zoom
+	zw = z * vw;
+	zh = zw * (ih / iw);
+
+	t.top = 0.035 * zh + vh/2 + "px";
+	t.left = vw/2 + "px";
+	t.transform = "translate(-50%, -50%)";
 }
 
 // hide splash and show main (target) element

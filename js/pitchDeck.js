@@ -316,6 +316,12 @@ function updateDisplay() {
 	zw = z * vw;
 	zh = zw * (ih / iw);
 
+	var vp = document.createElement('meta');
+  vp.setAttribute('name', 'viewport');
+	vp.setAttribute('content', 'width=5280');
+  vp.content = document.location;
+  document.getElementsByTagName('head')[0].appendChild(vp);
+
 	// t.width = "100%";
 	t.top = 0.035 * zh + vh/2 + "px";
 	t.left = vw/2 + "px";

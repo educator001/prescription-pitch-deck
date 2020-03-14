@@ -318,8 +318,7 @@ function updateDisplay() {
 
 	var vp = document.createElement('meta');
   vp.setAttribute('name', 'viewport');
-	vp.setAttribute('content', 'width=5280');
-  vp.content = document.location;
+  vp.content = 'width=5280';
   document.getElementsByTagName('head')[0].appendChild(vp);
 
 	// t.width = "100%";
